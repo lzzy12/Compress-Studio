@@ -1,2 +1,5 @@
-premake5.exe vs2017
+RMDIR /S /Q build
+md build
+cd build/
+cmake ..
 PAUSE

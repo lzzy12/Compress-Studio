@@ -4,6 +4,8 @@
 	#else
 		#define CS_UTIL __declspec(dllimport)
 	#endif
+#else
+	#define CS_UTIL
 #endif
 
 #define CS_OK 0

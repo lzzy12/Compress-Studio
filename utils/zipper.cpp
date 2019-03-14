@@ -1,5 +1,4 @@
 #include "zipper.h"
-
 namespace cs {
 
 	int zipper::compress() {
