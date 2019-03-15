@@ -16,7 +16,7 @@ namespace cs {
 		std::vector<std::string> paths;
 		std::string fileName;
 	public:
-		virtual int compress(std::string &destination, const std::string& password = NULL, int level = CS_DEFAULT_COMPRESSION) = 0;
+		virtual int compress(std::string &destination, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION) = 0;
 		virtual int decompress() = 0;
 		cs_int getOriginalSize();
 		cs_int getFinalSize();

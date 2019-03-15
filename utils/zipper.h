@@ -6,7 +6,7 @@ namespace cs {
 	{
 	public:
 		zipper();
-		int compress(std::string& destination, const std::string& password = NULL, int level = CS_DEFAULT_COMPRESSION);
+		int compress(std::string& destination, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION);
 		int decompress();
 	};
 }

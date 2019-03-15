@@ -1,8 +1,10 @@
 #ifdef CS_PLATFORM_WINDOWS
 	#ifdef CS_BUILD_DLL
 		#define CS_UTIL __declspec(dllexport)
+		#define EX_SCOPE
 	#else
 		#define CS_UTIL __declspec(dllimport)
+		#define EX_SCOPE extern
 	#endif
 #else
 	#define CS_UTIL
