@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Utils.h"
 int main(int argc, char **argv) {
+	
 	cs::zipper zip;
-	std::cout << zip.compress();
-	std::cin.ignore();
+	zip.addFile("C:\\dev\\CompressStudio\\CMakeLists.txt");
+	return zip.compress(std::string("C:\\dev\\CompressedStudio\\CS.zip"));
 }
