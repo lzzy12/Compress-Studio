@@ -37,10 +37,13 @@ namespace cs
 		else
 			addFile(path);
 	}
-	void archive::do_while_compress(std::function<void()> func)
+	std::string archive::getCurrFile() const
+	{	// Returns file currently being added or extracted to/from the archive
+		return currFile;
+	}
+	void cs::archive::setPreCompressJob(std::function<void()> func)
 	{
-		// This function takes a std::function and executes that function 
-		// each time a new file is added to the archive.
-		m_do_while_compress = func;
+		// Sets a job which is to be done before adding any file to the archive
+		m_do_pre_compress = func;
 	}
 }

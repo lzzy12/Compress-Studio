@@ -18,7 +18,7 @@ namespace cs {
 		bool overwrite_compress;
 		std::vector<std::string> paths;
 		std::string fileName;
-		std::function<void()> m_do_while_compress;
+		std::function<void()> m_do_pre_compress;
 		std::string currFile;
 	public:
 		virtual bool compress(const std::string &destination, const bool overwrite_if_exists, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION) = 0;
@@ -30,8 +30,8 @@ namespace cs {
 		void addFile(const char* path);
 		void addFolder(const std::string &path);
 		void add(const std::string &path);
-		void do_while_compress(std::function<void()> func);
-		virtual std::string getCurrFile() = 0;
+		virtual std::string getCurrFile() const;
+		void setPreCompressJob(std::function<void()> func);
 	};
 
 }

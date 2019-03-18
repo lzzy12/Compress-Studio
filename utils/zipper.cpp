@@ -39,7 +39,8 @@ namespace cs {
 				if (in == -1)
 					in = path.rfind("/");
 				std::string rootDir = path.substr(0, in);
-				m_do_while_compress();
+				currFile = path;
+				m_do_pre_compress();
 				err = mz_zip_writer_add_path(writer, path.c_str(), rootDir.c_str(), 0, 1);
 				if (err < 0)
 					return !CS_OK;
@@ -54,9 +55,5 @@ namespace cs {
 
 	bool zipper::decompress() {
 		return CS_OK;
-	}
-	std::string zipper::getCurrFile()
-	{
-		return currFile;
 	}
 }
