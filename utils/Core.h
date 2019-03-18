@@ -10,7 +10,7 @@
 	#define CS_UTIL
 #endif
 
-#define CS_OK 0
+#define CS_OK true
 #define CS_FILE_OPEN_FAILED -1
 #define CS_MINIZIP_API_ERROR -2
 

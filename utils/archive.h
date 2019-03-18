@@ -13,11 +13,13 @@ namespace cs {
 		cs_int originalSize;
 		cs_int finalSize;
 		cs_int ratio;
+		bool overwrite_extract;
+		bool overwrite_compress;
 		std::vector<std::string> paths;
 		std::string fileName;
 	public:
-		virtual int compress(std::string &destination, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION) = 0;
-		virtual int decompress() = 0;
+		virtual bool compress(std::string &destination, bool overwrite_if_exists = false, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION) = 0;
+		virtual bool decompress() = 0;
 		cs_int getOriginalSize();
 		cs_int getFinalSize();
 		cs_int getCompressionRatio();

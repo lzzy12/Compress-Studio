@@ -10,10 +10,12 @@
 #include "mz_zip_rw.h"
 namespace cs {
 
-	zipper::zipper() {
+	zipper::zipper(){
 		originalSize = 0;
+		overwrite_compress = false;
+		overwrite_extract = false;
 	}
-	int zipper::compress(std::string &destination, const std::string& password, int level) {
+	bool zipper::compress(std::string &destination, bool overwrite_if_exists, const std::string& password, int level) {
 		if (level < CS_NO_COMPRESSION || level > CS_BEST_COMPRESSION)
 			level = MZ_COMPRESS_LEVEL_DEFAULT;
 		void *writer = NULL;
@@ -23,34 +25,30 @@ namespace cs {
 			mz_zip_writer_set_password(writer, password.c_str());
 		mz_zip_writer_set_compress_level(writer, level);
 		mz_zip_writer_set_compress_method(writer, MZ_COMPRESS_METHOD_DEFLATE);
-		/*std::fstream fs(paths[0], std::ios::in | std::ios::binary);
-		if (fs.is_open()) {
-			fs.seekg(std::ios::end);
-			originalSize = fs.tellg();
-			fs.seekg(std::ios::beg);
-		}*/
-		err = mz_zip_writer_open_file(writer, destination.c_str(), originalSize, 0);
+		err = mz_zip_writer_open_file(writer, destination.c_str(), 0, (int) !overwrite_if_exists);
 		if (err < 0) {
 			std::cout << err;
 			mz_zip_writer_delete(&writer);
-			return err;
+			return !CS_OK;
 		}
 
-		if (err == MZ_OK) {
+		if (err >= 0) {
 			for (std::string path : paths)
 			{
 				//std::string fileName = path.substr(path.rfind('\\') + 1);
 				err = mz_zip_writer_add_path(writer, path.c_str(), NULL, 0, 1);
 				if (err < 0)
-					return err;
+					return !CS_OK;
 			}
 		}
 		err = mz_zip_writer_close(writer);
 		mz_zip_writer_delete(&writer);
-		return err;
+		if (err < 0)
+			return !CS_OK;
+		return CS_OK;
 	}
 
-	int zipper::decompress() {
+	bool zipper::decompress() {
 		return CS_OK;
 	}
 }

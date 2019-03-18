@@ -2,11 +2,11 @@
 #include "Core.h"
 #include "archive.h"
 namespace cs {
-	class CS_UTIL zipper :public archive
+	class CS_UTIL zipper : public archive
 	{
 	public:
 		zipper();
-		int compress(std::string& destination, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION);
-		int decompress();
+		bool compress(std::string& destination, bool overwrite_if_exists = false, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION);
+		bool decompress();
 	};
 }
