@@ -1,19 +1,19 @@
 #include <iostream>
 #include "Utils.h"
 int main(int argc, char **argv) {
+	if (argc < 2)
+	{
+		std::cout << "Help: cli.exe [file.zip] [files]";
+		return -1;
+	}
 	cs::zipper zip;
-	std::string zipPath;
-#ifdef  CS_PLATFORM_WINDOWS
-	zip.addFile("C:\\dev\\CompressStudio\\CMakeLists.txt");
-	zip.addFile("C:\\dev\\CompressStudio\\README.md");
-	zipPath = "C:\\dev\\CompressStudio\\build\\test.zip";
-#endif //  CS_PLATFORM_WINDOWS
-#ifdef CS_PLATFORM_LINUX
-	zip.addFile("~/CompressStudio/CMakeLists.txt");
-	zip.addFile("~/CompressStudio/README.md");
-	zipPath = "~/CompressStudio/test.zip";
-#endif // CS_PLATFORM_LINUX
+	for (int i = 2; i < argc; i++) {
+		zip.add(argv[i]);
+	}
+	zip.do_while_compress([](void) {
 
+	})
+	std::string zipPath(argv[1]);
 	if (zip.compress(zipPath, true))
 		return 0;
 	else

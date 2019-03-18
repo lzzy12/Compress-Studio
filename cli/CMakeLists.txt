@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.13)
 
 project(cli)
 set(CLI_SOURCES
@@ -8,6 +8,8 @@ add_executable(${PROJECT_NAME} ${CLI_SOURCES})
 if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PUBLIC CS_PLATFORM_WINDOWS)
     target_compile_definitions(${PROJECT_NAME} PRIVATE CS_BUILD_DLL)
+	set_target_properties(${PROJECT_NAME} PROPERTIES
+    VS_DEBUGGER_COMMAND_ARGUMENTS "test1.zip ../../.git/")
 endif()
 if(UNIX AND NOT APPLE)
     target_compile_definitions(${PROJECT_NAME} PUBLIC CS_PLATFORM_LINUX)

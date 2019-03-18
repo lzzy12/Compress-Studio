@@ -15,7 +15,7 @@ namespace cs {
 		overwrite_compress = false;
 		overwrite_extract = false;
 	}
-	bool zipper::compress(std::string &destination, bool overwrite_if_exists, const std::string& password, int level) {
+	bool zipper::compress(const std::string &destination, const bool overwrite_if_exists, const std::string& password, int level) {
 		if (level < CS_NO_COMPRESSION || level > CS_BEST_COMPRESSION)
 			level = MZ_COMPRESS_LEVEL_DEFAULT;
 		void *writer = NULL;
@@ -35,8 +35,12 @@ namespace cs {
 		if (err >= 0) {
 			for (std::string path : paths)
 			{
-				//std::string fileName = path.substr(path.rfind('\\') + 1);
-				err = mz_zip_writer_add_path(writer, path.c_str(), NULL, 0, 1);
+				int in = path.rfind("\\");
+				if (in == -1)
+					in = path.rfind("/");
+				std::string rootDir = path.substr(0, in);
+				m_do_while_compress();
+				err = mz_zip_writer_add_path(writer, path.c_str(), rootDir.c_str(), 0, 1);
 				if (err < 0)
 					return !CS_OK;
 			}
@@ -50,5 +54,9 @@ namespace cs {
 
 	bool zipper::decompress() {
 		return CS_OK;
+	}
+	std::string zipper::getCurrFile()
+	{
+		return currFile;
 	}
 }

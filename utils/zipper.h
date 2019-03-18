@@ -6,7 +6,8 @@ namespace cs {
 	{
 	public:
 		zipper();
-		bool compress(std::string& destination, bool overwrite_if_exists, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION);
+		bool compress(const std::string& destination, const bool overwrite_if_exists, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION);
 		bool decompress();
+		std::string getCurrFile();
 	};
 }
