@@ -18,7 +18,7 @@ namespace cs {
 		std::vector<std::string> paths;
 		std::string fileName;
 	public:
-		virtual bool compress(std::string &destination, bool overwrite_if_exists = false, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION) = 0;
+		virtual bool compress(std::string &destination, bool overwrite_if_exists, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION) = 0;
 		virtual bool decompress() = 0;
 		cs_int getOriginalSize();
 		cs_int getFinalSize();
