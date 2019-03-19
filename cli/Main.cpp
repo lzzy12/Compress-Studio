@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
 	for (int i = 2; i < argc; i++) {
 		zip.add(argv[i]);
 	}
-	zip.setPreCompressJob([zip]() {
+	zip.setPreCompressJob([&zip]() {
 		std::cout << "Archiving " << zip.getCurrFile() << "\n";
 	});
 	std::string zipPath(argv[1]);
