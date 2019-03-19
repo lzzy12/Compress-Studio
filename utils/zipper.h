@@ -6,7 +6,10 @@ namespace cs {
 	{
 	public:
 		zipper();
-		bool compress(const std::string& destination, const bool overwrite_if_exists, const std::string& password = "", int level = CS_DEFAULT_COMPRESSION);
-		bool decompress();
+		bool compress(const std::string& destination, const bool overwrite_if_exists, 
+			const std::string& password = "", int level = CS_DEFAULT_COMPRESSION);
+
+		bool decompress(const std::string& zip_path, const std::string& destination,
+			const std::string &pattern = "", const std::string &password = "");
 	};
 }

@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 		std::cout << "Archiving " << zip.getCurrFile() << "\n";
 	});
 	std::string zipPath(argv[1]);
-	if (zip.compress(zipPath, true))
+	if (zip.compress(zipPath, true) && zip.decompress(zipPath, "test_decomp"))
 		return 0;
 	else
 		return -1;

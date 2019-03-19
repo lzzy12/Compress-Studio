@@ -53,7 +53,25 @@ namespace cs {
 		return CS_OK;
 	}
 
-	bool zipper::decompress() {
-		return CS_OK;
+	bool zipper::decompress(const std::string& zip_path, const std::string& destination, const std::string &pattern, const std::string &password) {
+		void *reader = NULL;
+		mz_zip_reader_create(&reader);
+		if (!password.empty())
+			mz_zip_reader_set_password(reader, password.c_str());
+		mz_zip_reader_set_encoding(reader, 0);
+		if(!pattern.empty())
+			mz_zip_reader_set_pattern(reader, pattern.c_str(), 1);
+
+		if (mz_zip_reader_open_file(reader, zip_path.c_str()) == MZ_OK) // Means everything OK
+		{
+			if (mz_zip_reader_save_all(reader, destination.c_str()) != MZ_OK)
+				return !CS_OK;
+			
+			if(mz_zip_reader_close(reader) != MZ_OK)
+				return !CS_OK;
+			mz_zip_reader_delete(&reader);
+			return CS_OK;
+		}
+
 	}
 }
