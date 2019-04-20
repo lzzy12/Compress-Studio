@@ -16,6 +16,10 @@ int main(int argc, char **argv) {
 	std::string zipPath(argv[1]);
 	if (zip.compress(zipPath, true)) {
 		std::cout << "compressed \n";
+		std::cout << "Files in Zip: \n";
+		for (std::string i : zip.listArchive(zipPath)) {
+			std::cout << i << std::endl;
+		}
 		if (zip.decompress(zipPath, "test_decomp"))
 			return 0;
 		return -1;

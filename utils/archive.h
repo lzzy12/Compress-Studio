@@ -21,9 +21,16 @@ namespace cs {
 		std::function<void()> m_do_pre_compress;
 		std::string currFile;
 	public:
+		// Only pure virtual methods
 		virtual bool compress(const std::string &destination, const bool overwrite_if_exists, 
 			const std::string& password = "", int level = CS_DEFAULT_COMPRESSION) = 0;
-		virtual bool decompress(const std::string& zip_path, const std::string& destination, const std::string &pattern, const std::string &password) = 0;
+
+		virtual bool decompress(const std::string& zip_path, const std::string& destination, const std::string &pattern, 
+			const std::string &password) = 0;
+
+		virtual std::vector<std::string> listArchive(std::string path) = 0;
+
+	public:
 		cs_int getOriginalSize();
 		cs_int getFinalSize();
 		cs_int getCompressionRatio();

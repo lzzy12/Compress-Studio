@@ -75,4 +75,45 @@ namespace cs {
 		return CS_OK;
 
 	}
+
+	std::vector<std::string> zipper::listArchive(std::string path)
+	{
+		std::vector<std::string> r;
+		mz_zip_file* file_info = NULL;
+		uint32_t ratio = 0;
+		int16_t level = 0;
+		int32_t err = MZ_OK;
+		struct tm tmu_date;
+		const char* string_method = NULL;
+		char crypt = ' ';
+		void* reader = NULL;
+		mz_zip_reader_create(&reader);
+		err = mz_zip_reader_open_file(reader, path.c_str());
+		if (err != MZ_OK)
+		{
+			mz_zip_reader_delete(&reader);
+			return std::vector<std::string>();	// return an empty vector if error occurs
+		}
+		err = mz_zip_reader_goto_first_entry(reader);
+		if (err != MZ_OK && err != MZ_END_OF_LIST)
+		{
+			mz_zip_reader_delete(&reader);
+			return std::vector<std::string>();
+		}
+		do {
+
+			err = mz_zip_reader_entry_get_info(reader, &file_info);
+			if (err != MZ_OK)
+				break;
+			r.push_back(file_info->filename);
+			err = mz_zip_reader_goto_next_entry(reader);
+		} while (err == MZ_OK);
+		if (err != MZ_OK && err != MZ_END_OF_LIST)
+		{
+			mz_zip_reader_delete(&reader);
+			return std::vector<std::string>();
+		}
+		return r;
+	}
+	
 }
