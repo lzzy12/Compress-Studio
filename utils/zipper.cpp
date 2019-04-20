@@ -35,7 +35,7 @@ namespace cs {
 		if (err >= 0) {
 			for (std::string path : paths)
 			{
-				int in = path.rfind("\\");
+				size_t in = path.rfind("\\");
 				if (in == -1)
 					in = path.rfind("/");
 				std::string rootDir = path.substr(0, in);
@@ -69,9 +69,10 @@ namespace cs {
 			
 			if(mz_zip_reader_close(reader) != MZ_OK)
 				return !CS_OK;
-			mz_zip_reader_delete(&reader);
-			return CS_OK;
+			
 		}
+		mz_zip_reader_delete(&reader);
+		return CS_OK;
 
 	}
 }

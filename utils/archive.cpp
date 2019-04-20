@@ -17,7 +17,7 @@ namespace cs
 	{
 		paths.push_back(path);
 	}
-	void archive::addFile(const const char * path)
+	void archive::addFile(const char * path)
 	{
 		// Adds file
 		if (path[0] != NULL) // path[0] == NULL means that the char array is empty
