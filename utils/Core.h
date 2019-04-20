@@ -1,15 +1,16 @@
 #ifdef CS_PLATFORM_WINDOWS
-	#ifdef CS_BUILD_DLL
-		#define CS_UTIL __declspec(dllexport)
-		#define EX_SCOPE
+	#ifdef CS_SHARED_LINK
+		#ifdef CS_BUILD_DLL
+			#define CS_UTIL __declspec(dllexport)
+			#define EX_SCOPE
+		#else
+			#define CS_UTIL __declspec(dllimport)
+			#define EX_SCOPE extern
+		#endif
 	#else
-		#define CS_UTIL __declspec(dllimport)
-		#define EX_SCOPE extern
+		#define CS_UTIL
 	#endif
-#else
-	#define CS_UTIL
 #endif
-
 #define CS_OK true
 #define CS_FILE_OPEN_FAILED -1
 #define CS_MINIZIP_API_ERROR -2
