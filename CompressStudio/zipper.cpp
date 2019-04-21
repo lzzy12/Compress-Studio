@@ -80,10 +80,7 @@ namespace cs {
 	{
 		std::vector<std::string> r;
 		mz_zip_file* file_info = NULL;
-		uint32_t ratio = 0;
-		int16_t level = 0;
 		int32_t err = MZ_OK;
-		struct tm tmu_date;
 		const char* string_method = NULL;
 		char crypt = ' ';
 		void* reader = NULL;
