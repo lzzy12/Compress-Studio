@@ -5,11 +5,11 @@ option(CS_SHARED_LINK "Makes the project dynamically linked" OFF)
 # Project
 set(UTILS_SOURCES 
     archive.cpp 
-    archive.h
-    Core.h
-    CS.h
+    include/archive.h
+    include/Core.h
+    include/CS.h
     zipper.cpp
-    zipper.h
+    include/zipper.h
 )
 project(CompressStudio)
 link_directories(${PROJECT_BINARY_DIR}/../vendor/zipper/$<CONFIGURATION>/)
@@ -29,7 +29,7 @@ endif()
 if(UNIX AND NOT APPLE)
     target_compile_definitions(${PROJECT_NAME} PUBLIC CS_PLATFORM_LINUX)
 endif()
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../vendor/minizip)
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../vendor/minizip ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} minizip)
 
 if(CS_SHARED_LINK)
