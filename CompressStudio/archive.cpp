@@ -28,7 +28,7 @@ namespace cs
 	void archive::addFile(const char * path)
 	{
 		// Adds file
-		if (path[0] != NULL) // path[0] == NULL means that the char array is empty
+		if (path[0] != '\0') // path[0] == '\0' means that the char array is empty
 			paths.push_back(std::string(path));
 	}
 	void archive::addFolder(const std::string & path)
