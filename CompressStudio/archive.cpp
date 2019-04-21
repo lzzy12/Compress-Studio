@@ -1,5 +1,13 @@
 #include "archive.h"
+#ifdef LEGACY_CXX
+#include <experimental/filesystem>
+namespace n_fs = ::std::experimental::filesystem;
+#else
 #include <filesystem>
+namespace n_fs = ::std::filesystem;
+#endif
+
+
 namespace cs
 {
 	cs_int archive::getOriginalSize() {
@@ -26,13 +34,13 @@ namespace cs
 	void archive::addFolder(const std::string & path)
 	{
 		// Adds folder
-		for (auto entry : std::filesystem::directory_iterator(path)) {
+		for (auto entry : n_fs::directory_iterator(path)) {
 			addFile(entry.path().string());
 		}
 	}
 	void archive::add(const std::string &path) {
 		// adds file or folder both to the archive
-		if (std::filesystem::is_directory(path))
+		if (n_fs::is_directory(path))
 			addFolder(path);
 		else
 			addFile(path);

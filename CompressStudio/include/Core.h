@@ -10,6 +10,8 @@
 	#else
 		#define CS_UTIL
 	#endif
+#else 
+	#define CS_UTIL
 #endif
 #define CS_OK true
 #define CS_FILE_OPEN_FAILED -1
