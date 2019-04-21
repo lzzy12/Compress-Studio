@@ -7,11 +7,11 @@ set(UTILS_SOURCES
     archive.cpp 
     archive.h
     Core.h
-    Utils.h
+    CS.h
     zipper.cpp
     zipper.h
 )
-project(utils)
+project(CompressStudio)
 link_directories(${PROJECT_BINARY_DIR}/../vendor/zipper/$<CONFIGURATION>/)
 
 

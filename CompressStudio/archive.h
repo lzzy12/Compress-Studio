@@ -28,7 +28,7 @@ namespace cs {
 		virtual bool decompress(const std::string& zip_path, const std::string& destination, const std::string &pattern, 
 			const std::string &password) = 0;
 
-		virtual std::vector<std::string> listArchive(std::string path) = 0;
+		virtual std::vector<std::string> listArchive(std::string path, const std::string &pattern="*") = 0;
 
 	public:
 		cs_int getOriginalSize();

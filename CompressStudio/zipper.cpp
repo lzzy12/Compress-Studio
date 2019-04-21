@@ -76,7 +76,7 @@ namespace cs {
 
 	}
 
-	std::vector<std::string> zipper::listArchive(std::string path)
+	std::vector<std::string> zipper::listArchive(std::string path, const std::string &pattern)
 	{
 		std::vector<std::string> r;
 		mz_zip_file* file_info = NULL;
@@ -103,6 +103,7 @@ namespace cs {
 		do {
 
 			err = mz_zip_reader_entry_get_info(reader, &file_info);
+			mz_zip_reader_set_pattern(reader, pattern.c_str(), 1);
 			if (err != MZ_OK)
 				break;
 			r.push_back(file_info->filename);

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Utils.h"
+#include "CS.h"
 int main(int argc, char **argv) {
 	if (argc < 2)
 	{
@@ -17,9 +17,13 @@ int main(int argc, char **argv) {
 	if (zip.compress(zipPath, true)) {
 		std::cout << "compressed \n";
 		std::cout << "Files in Zip: \n";
-		for (std::string i : zip.listArchive(zipPath)) {
-			std::cout << i << std::endl;
+		std::cout << "\n\nWithout pattern\n";
+		for (std::string str : zip.listArchive(zipPath)) {
+			std::cout << str << std::endl;
 		}
+		std::cout << "\n\nWith pattern \n";
+		for (std::string str : zip.listArchive(zipPath, "c*"))
+			std::cout << str << std::endl;
 		if (zip.decompress(zipPath, "test_decomp"))
 			return 0;
 		return -1;

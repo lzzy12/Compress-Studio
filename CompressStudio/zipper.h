@@ -11,6 +11,6 @@ namespace cs {
 
 		bool decompress(const std::string& zip_path, const std::string& destination,
 			const std::string &pattern = "", const std::string &password = "");
-		virtual std::vector<std::string> listArchive(std::string path);
+		virtual std::vector<std::string> listArchive(std::string path, const std::string &pattern = "*");
 	};
 }
