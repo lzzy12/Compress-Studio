@@ -25,7 +25,6 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 		message(FATAL_ERROR "You are on an extremely old version of GCC. Please update your compiler to at least GCC 5.4, preferably latest")
     elseif (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.0)
 		message(WARNING "Old Verison of GCC detected. Using Legacy C++ support")
-		target_link_libraries(${PROJECT_NAME} -lstdc++fs)
 		target_compile_definitions(${PROJECT_NAME} PUBLIC LEGACY_CXX)
 	endif()
 endif()
@@ -40,7 +39,7 @@ if(UNIX AND NOT APPLE)
 endif()
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/../vendor/minizip ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} minizip)
-
+target_link_libraries(${PROJECT_NAME} stdc++fs)
 if(CS_SHARED_LINK)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${PROJECT_BINARY_DIR}/../cli/$<CONFIGURATION>/$<TARGET_FILE_NAME:${PROJECT_NAME}>
