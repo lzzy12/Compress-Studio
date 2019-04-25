@@ -10,12 +10,15 @@ namespace cs {
 		/* A base class which will be derived by the classes which will be
 		* used to implement different de/compression algorithms
 		*/
+	private:
+		void setOriginalSize(std::string path);
 	protected:
-		cs_int originalSize;
-		cs_int finalSize;
+		double originalSize;
+		double finalSize;
+		double progress;
 		std::vector<std::string> paths;
 		std::string fileName;
-		std::function<void()> m_do_pre_compress;
+		std::function<void()> m_do_while_compress;
 		std::string currFile;
 	public:
 		// Only pure virtual methods
@@ -25,19 +28,21 @@ namespace cs {
 		virtual bool decompress(const std::string& zip_path, const std::string& destination, const std::string &pattern, 
 			const std::string &password) = 0;
 
-		virtual std::vector<std::string> listArchive(std::string path, const std::string &pattern="*") = 0;
-		virtual float getProgress() = 0;
+		virtual std::vector<std::string> listArchive(std::string path, const std::string &pattern="*") const = 0;
+		virtual double getProgress() const = 0 ;
 
 	public:
-		cs_int getOriginalSize();
-		cs_int getFinalSize();
+		archive();
+		double getOriginalSize() const;
+		double getFinalSize() const;
 		cs_int getCompressionRatio();
 		void addFile(const std::string& path);
 		void addFile(const char* path);
 		void addFolder(const std::string &path);
 		void add(const std::string &path);
 		virtual std::string getCurrFile() const;
-		void setPreCompressJob(std::function<void()> func);
+		void setWhileCompressJob(std::function<void()> func);
+
 	};
 
 }

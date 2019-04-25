@@ -1,4 +1,5 @@
 #include <iostream>
+#include <filesystem>
 #include "include/CS.h"
 int main(int argc, char **argv) {
 	if (argc < 2)
@@ -10,12 +11,14 @@ int main(int argc, char **argv) {
 	for (int i = 2; i < argc; i++) {
 		zip.add(argv[i]);
 	}
-	zip.setPreCompressJob([&zip]() {
+	zip.setWhileCompressJob([&zip]() {
 		std::cout << "Archiving " << zip.getCurrFile() << "\n";
+		std::cout << "Progress: " << zip.getProgress() << std::endl;
 	});
 	std::string zipPath(argv[1]);
 	if (zip.compress(zipPath, true)) {
-		std::cout << "compressed \n";
+		std::cout << "compressed Size: " << zip.getFinalSize() / 1024/1024 << "MBs" << std::endl;
+		std::cout << "Original Size: " << zip.getOriginalSize() /1024/1024 << "MBs" << std::endl;
 		std::cout << "Files in Zip: \n";
 		std::cout << "\n\nWithout pattern\n";
 		for (std::string str : zip.listArchive(zipPath)) {
