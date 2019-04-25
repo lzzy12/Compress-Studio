@@ -13,9 +13,6 @@ namespace cs {
 	protected:
 		cs_int originalSize;
 		cs_int finalSize;
-		cs_int ratio;
-		bool overwrite_extract;
-		bool overwrite_compress;
 		std::vector<std::string> paths;
 		std::string fileName;
 		std::function<void()> m_do_pre_compress;
@@ -29,6 +26,7 @@ namespace cs {
 			const std::string &password) = 0;
 
 		virtual std::vector<std::string> listArchive(std::string path, const std::string &pattern="*") = 0;
+		virtual float getProgress() = 0;
 
 	public:
 		cs_int getOriginalSize();

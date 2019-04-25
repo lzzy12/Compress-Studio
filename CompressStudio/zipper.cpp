@@ -12,8 +12,6 @@ namespace cs {
 
 	zipper::zipper(){
 		originalSize = 0;
-		overwrite_compress = false;
-		overwrite_extract = false;
 	}
 	bool zipper::compress(const std::string &destination, const bool overwrite_if_exists, const std::string& password, int level) {
 		if (level < CS_NO_COMPRESSION || level > CS_BEST_COMPRESSION)

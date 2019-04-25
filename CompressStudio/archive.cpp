@@ -19,7 +19,8 @@ namespace cs
 		return finalSize;
 	}
 	cs_int archive::getCompressionRatio() {
-		return ratio;
+		// Not implemented yet. Return CS_OK for now
+		return CS_OK;
 	}
 	void archive::addFile(const std::string &path)
 	{
