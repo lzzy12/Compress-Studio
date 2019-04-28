@@ -1,17 +1,17 @@
-version: v1.0
+ version: v1.0
 name: Compress Studio Build CI
 agent: 
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
  blocks:
-  -name: Instal deps
+  - name: Instal deps
    task: 
      env_vars:
-        -name: CMAKE_VERSION
-        value: "3.14.3"
+        - name: CMAKE_VERSION
+          value: "3.14.3"
      jobs:
-       -name: Install cmake
+       - name: Install cmake
           commands:
             - mkdir -p cmake-install && cd cmake-install
             - wget https://github.com/Kitware/CMake/releases/download/${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz
