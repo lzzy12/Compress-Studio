@@ -6,7 +6,7 @@ agent:
     os_image: ubuntu1804
  blocks:
   - name: Instal deps
-   task: 
+    task: 
      env_vars:
         - name: CMAKE_VERSION
           value: "3.14.3"
@@ -20,7 +20,7 @@ agent:
             - make -j$(nproc --all)
             - make install -j$(nproc --all)
             - echo "Done installing cmake"
-     task:
+         task:
        -name: Build source
            commands:
             - cd ../
