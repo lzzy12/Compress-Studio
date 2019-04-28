@@ -15,10 +15,12 @@ namespace n_fs = ::std::filesystem;
 #include "mz_strm_split.h"
 //#include "mz_zip.h" Already included in zipper.h
 #include "mz_zip_rw.h"
+
+	
 namespace cs {
-	int32_t minizip_add_progress_cb(void* handle, void* userdata, mz_zip_file* file_info, int64_t position)
+	int32_t zipper::minizip_add_progress_cb(void* handle, void* userdata, mz_zip_file* file_info, int64_t position)
 	{
-		zipper* z = (cs::zipper*) userdata;
+		cs::zipper* z = (cs::zipper*) userdata;
 		uint8_t raw = 0;
 
 		MZ_UNUSED(userdata);
@@ -45,7 +47,7 @@ namespace cs {
 		mz_zip_writer_set_compress_level(writer, level);
 		mz_zip_writer_set_compress_method(writer, MZ_COMPRESS_METHOD_DEFLATE);
 		mz_zip_writer_set_progress_cb(writer, this, minizip_add_progress_cb);
-		mz_zip_writer_set_progress_interval(writer, 1000);
+		mz_zip_writer_set_progress_interval(writer, 10);
 		err = mz_zip_writer_open_file(writer, destination.c_str(), 0, (int) !overwrite_if_exists);
 		if (err < 0) {
 			std::cout << err;
@@ -98,7 +100,7 @@ namespace cs {
 
 	}
 
-	std::vector<std::string> zipper::listArchive(std::string path, const std::string &pattern) const
+	std::vector<std::string> zipper::listArchive(const std::string &path, const std::string &pattern) const
 	{
 		std::vector<std::string> r;
 		mz_zip_file* file_info = NULL;

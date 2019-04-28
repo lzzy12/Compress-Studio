@@ -27,6 +27,7 @@ int main(int argc, char **argv) {
 		std::cout << "\n\nWith pattern \n";
 		for (std::string str : zip.listArchive(zipPath, "c*"))
 			std::cout << str << std::endl;
+		std::cout << sizeof(cs::zipper);
 		if (zip.decompress(zipPath, "test_decomp"))
 			return 0;
 		return -1;

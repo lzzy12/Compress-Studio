@@ -28,7 +28,7 @@ namespace cs {
 		virtual bool decompress(const std::string& zip_path, const std::string& destination, const std::string &pattern, 
 			const std::string &password) = 0;
 
-		virtual std::vector<std::string> listArchive(std::string path, const std::string &pattern="*") const = 0;
+		virtual std::vector<std::string> listArchive(const std::string &path, const std::string &pattern="*") const = 0;
 		virtual double getProgress() const = 0 ;
 
 	public:
