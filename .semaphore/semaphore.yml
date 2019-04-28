@@ -1,17 +1,29 @@
-# .semaphore/semaphore.yml
-version: v1.0
-name: Building Docker images
-agent:
+version: v0.1
+name: Compress Studio Build CI
+agent: 
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
-
-blocks:
-  - name: Build Compress Studio lib and cli example
-    task:
-      jobs:
-      - name: CompressStudio Docker
-        commands:
-          - checkout
-          - docker build -t build:v1 .
-          - docker run build:v1
+ blocks:
+  -name: Build
+   task: 
+     env_vars:
+        -name: CMAKE_VERSION
+        value: "3.14.3"
+     jobs:
+       - name: Install deps
+          commands:
+            - mkdir -p cmake-install && cd cmake-install
+            - wget https://github.com/Kitware/CMake/releases/download/${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz
+            - tar -xzf ${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz
+            - cmake .
+            - make -j$(nproc --all)
+            - make install -j$(nproc --all)
+            - echo "Done installing cmake"
+        - name: Build source
+           commands:
+            - cd ../
+            - mkdir -p build && cd build
+            - cmake ..
+            - make -j$(nproc --all)
+            
